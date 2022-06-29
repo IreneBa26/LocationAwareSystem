@@ -1,0 +1,61 @@
+<resources>
+
+    <string name="app_name">BS</string>
+    <string name="navigation_drawer_open">Apri navigazione</string>
+    <string name="navigation_drawer_close">Chiudi navigazione</string>
+    <string name="action_info">Informazioni</string>
+    <string name="hello_blank_fragment">Mappa</string>
+    <string name="new_fence_text"> Aggiungi un nuovo Fence!\n</string>
+    <string name="credits_string">Ringaziamenti</string>
+    <string name="labelName">Nome</string>
+    <string name="labelAddress">Indirizzo</string>
+    <string name="labelButtonSave">Salva</string>
+    <string name="labelEvent">Evento</string>
+    <string name="labelRange">Range(m)</string>
+    <string name="labelTextSMS">Testo SMS</string>
+    <string name="labelNumber">Numero del telefono</string>
+    <string name="labelProvince">Provincia</string>
+    <string name="labelCity">Città</string>
+    <string name="fenceIcon">fenceIcon</string>
+    <string name="labelPollingStrategy">Esegui Polling ogni 5 secondi</string>
+    <string name="labelBetterApproach">Altro approccio per Polling</string>
+    <string name="labelLowNetwork">Basso consumo di Rete</string>
+    <string name="labelPrecision">Alta Precisione</string>
+    <string name="labelBatteryHigh">Alto consumo</string>
+    <string name="labelBatteryLow">Basso consumo</string>
+    <string name="iconBattery">iconBattery</string>
+    <string name="iconPrecision">iconPrecision</string>
+    <string name="iconnetwork">iconNetwork</string>
+    <string name="imageHome">imageHome</string>
+    <string name="textSMSHome">I contatti sono notificati automaticamente!</string>
+    <string name="textMovementHome">Muoviti tra i fences (ENTRA/ESCI)</string>
+    <string name="textStartServiceHome">Inizia il servizio</string>
+    <string name="textPickHome">Sistema il tuo fences</string>
+    <string name="imageHomedescription">imageHomedescription</string>
+    <string name="imageSMSDescription">imageSMSDescription</string>
+    <string name="imageMovementDescription">imageMovementDescription</string>
+    <string name="myname">Irene Basaglia e Marco Silvestri</string>
+    <string name="gmail_contact">nenarapsody@gmail.com, marcosilvestri.ms@gmail.com</string>
+    <string name="unibo_contact">irene.basaglia@studio.unibo.it, marcosilvestri.10@studio.unibo.it</string>
+    <string name="github_contact">Contattaci per altre informazioni!</string>
+    <string name="string_info_year">BS è un progetto accademico A.A. 2019/20</string>
+    <string name="string_info_uni">Informatica magistrale, curriculum "Informatica per il management". Alma Mater Studiorum - Università di Bologna</string>
+    <string name="uniBoIcon">uniBoIcon</string>
+
+    <string-array name="range_geofence">
+        <item>50</item>
+        <item>100</item>
+        <item>250</item>
+        <item>500</item>
+        <item>1000</item>
+        <item>2000</item>
+        <item>5000</item>
+    </string-array>
+
+    <string-array name="event_geofence">
+        <item>ENTER</item>
+        <item>EXIT</item>
+        <item>ENTER/EXIT</item>
+    </string-array>
+
+</resources>

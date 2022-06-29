@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_map_home"
+            android:icon="@drawable/ic_home_black_24px"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_map_geofences"
+            android:icon="@drawable/ic_map"
+            android:title="Mappa" />
+        <item
+            android:id="@+id/nav_list_geofences"
+            android:icon="@drawable/ic_map_multiple_fence"
+            android:title="Lista Personale di Parcheggi" />
+        <item
+            android:id="@+id/nav_list_start_service"
+            android:icon="@drawable/ic_start_service_24dp"
+            android:title="Avverti Parcheggi Personali" />
+        <item
+            android:id="@+id/nav_info_credits"
+            android:icon="@drawable/ic_star_credits"
+            android:title="Informazioni" />
+    </group>
+
+</menu>
