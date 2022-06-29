@@ -1,0 +1,251 @@
+<h1>{{> page/title}}</h1>
+
+{{> page/nav}}
+
+<p id="coordinate">{{coordinateGPS message}}</p>
+<script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
+
+    <h2>OpenLayers Demo</h2>
+
+    <h3>BS map: controlla il tuo sistema!</h3>
+    <form name="chooseMap">
+        <div align ="center">
+        
+        <div>
+                    <p class="pp1"> Visualizza eventuali Cordinate GPS ricevute: <input type="button" name="mapType" value="Coordinate" onClick="setCoordinateGPS()"> </p> 
+                </div>
+            <div>
+                    <p class="pp1"> Visualizza history di CordinateGPS: <input type="button" name="mapType" value="Aggiorna" onClick="setCoordinateGPShistory()"> </p> 
+                
+            </div>
+            <div>    
+                
+                    <p class="pp1"> Visualizzazione mappa: <input type="button" name="mapType" value="Osm" onClick="setMapOSM()"> 
+                    <input type="button" name="mapType" value="Stamen" onClick="setMapStamen()"> </p> 
+                
+            </div>
+            <br> 
+            <div>
+                
+                    <button class="button button1" onclick="refresh()" title="Refresh">Refresh page ↻</button> 
+                
+            </div>
+
+        </div>
+        
+    </form>
+    <br>
+    
+
+    <div id="map" class="map"></div>
+    <script type="text/javascript">
+
+        document.getElementById("coordinate").style.display='none';
+
+
+        var myGJSONstyle = new ol.style.Style({
+            image: new ol.style.Circle({
+                radius: 5,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0, 255, 0, 0.13)'
+                }),
+                stroke: new ol.style.Stroke({
+                    color: 'green',
+                    width: 1
+                })
+            })
+        });
+
+
+        var map = new ol.Map({
+            target: 'map',
+            layers: [new ol.layer.Tile({
+                source: new ol.source.OSM()
+            })],
+            view: new ol.View({
+                center: ol.proj.fromLonLat([11.3394883, 44.4938134]),
+                zoom: 13
+            })
+        });
+
+        var osmLayer1 = new ol.layer.Tile({
+            source: new ol.source.OSM({})
+        });
+
+        var osmLayer2 = new ol.layer.Tile({
+            source: new ol.source.Stamen({
+                layer: 'terrain'
+            })
+        });
+
+        var MapOSM = 1; //parto a 1 perchè di base l'ho già attivato!
+        var MapStamen = 0;
+
+        function refresh() {
+            location.reload();
+        }
+
+        function setCoordinateGPS() {
+            var coordinateGPS = document.getElementById("coordinate").innerHTML;
+
+            var color="red";
+            var res = coordinateGPS.split(" ");
+            //alert(coordinateGPS);
+            for (k in res) {
+                if (k==4 || k==8 || k==12 || k==16 || k==20) {
+                    var a=parseFloat(res[k]);
+                    var b=parseFloat(res[k-1]);
+                    disegnaCoordinate(color, a, b);
+                }
+            }
+
+            var res1 = coordinateGPS.split("_");
+            var cort = res1[1];
+            var analyz = cort.split(" ");
+            
+            color="black";
+            //var analyz = cort.split(";");
+            for (h in analyz) {
+                if (analyz[h].includes(";")) {
+                    var a=parseFloat(analyz[h-1]);
+                    var b=parseFloat(analyz[h]);
+                    disegnaCoordinate(color, a, b);
+                }
+            }
+
+            localStorage.setItem('layer',JSON.stringify('Layer già settato'));
+
+        }
+
+        function setCoordinateGPShistory() {
+            var coordinateGPS = document.getElementById("coordinate").innerHTML;
+
+            var color="red";
+
+            var res1 = coordinateGPS.split("_");
+            var cort = res1[2];
+            var analyz = cort.split(" ");
+
+            color="gray";
+            //var analyz = cort.split(";");
+            for (h in analyz) {
+                if (analyz[h]==";") {
+                    var a=parseFloat(analyz[h-1]);
+                    var b=parseFloat(analyz[h-2]);
+                    //alert(a);
+                    //alert(b);
+                    disegnaCoordinate(color, a, b);
+                }
+            }
+
+            localStorage.setItem('layer',JSON.stringify('Layer già settato'));
+        }
+
+        function disegnaCoordinate (color, a, b) {
+            if (color=="red") {
+                var featureCoorData1 = new ol.style.Style({    
+                image:  new ol.style.Circle({   
+                    radius: 10,    
+                    fill:   new ol.style.Fill({color:   'rgba(250,  0,  0,  1)'}),  
+                    //stroke:   new ol.style.Stroke({color: 'red',  width:  7}) 
+                })
+            });
+            } else if (color=="black") {
+                var featureCoorData1 = new ol.style.Style({    
+                image:  new ol.style.Circle({   
+                    radius: 10,    
+                    fill:   new ol.style.Fill({color:   'rgba(0,  0,  0,  1)'}),  
+                    //stroke:   new ol.style.Stroke({color: 'red',  width:  7}) 
+                })
+            });
+            } else {
+                var featureCoorData1 = new ol.style.Style({    
+                image:  new ol.style.Circle({   
+                    radius: 10,    
+                    fill:   new ol.style.Fill({color:   'rgba(145,  145,  145,  1)'}),  
+                    //stroke:   new ol.style.Stroke({color: 'red',  width:  7}) 
+                })
+            });
+            }
+
+
+            var coor = ol.proj.fromLonLat([a,b]);
+            //var coor = ol.proj.fromLonLat([11.346265,44.507499]);
+            var lonLat7 = new ol.geom.Point(coor);
+
+            var coorLayer7=new ol.layer.Vector({ 
+                title:  'My new layer', 
+                source: new ol.source.Vector({
+                    features: [ new ol.Feature({
+                        geometry: lonLat7,
+                        name: 'Line'
+                    })]
+                }), 
+                style:  featureCoorData1,
+                crossOrigin: 'anonymous'
+            }); 
+            coorLayer7.setVisible(true); 
+            map.addLayer(coorLayer7);
+        }
+
+
+        
+
+
+        function setMapOSM() {
+
+            var id = JSON.parse(localStorage.getItem('layer'));
+            //alert(id);
+
+            if (Boolean(MapOSM)) {
+                map.removeLayer(osmLayer1);
+                alert("MapOSM era gia' stato attivato. Rilanciamo la mappa");
+                MapOSM = 0; //inutile, tanto fra 3 righe lo risetto a 1
+            }
+            map.addLayer(osmLayer1);
+
+            if (Boolean(MapStamen)) {
+                map.removeLayer(osmLayer2);
+                alert("Sto rimuovendo MapStamen");
+                MapStamen = 0;
+            }
+
+            azzeraScelte();
+
+            osmLayer1.setVisible(true);
+            MapOSM = 1;
+        }
+
+        function setMapStamen() {
+            //alert("Stamen!");  
+
+            if (Boolean(MapStamen)) {
+                map.removeLayer(osmLayer2);
+                alert("MapStamen era gia' stato attivato. Rilanciamo la mappa");
+                MapStamen = 0; //inutile, tanto fra 3 righe lo risetto a 1
+            }
+            map.addLayer(osmLayer2);
+
+            if (Boolean(MapOSM)) {
+                map.removeLayer(osmLayer1);
+                alert("Sto rimuovendo MapOSM!");
+                MapOSM = 0;
+            }
+
+            azzeraScelte();
+
+            osmLayer2.setVisible(true);
+            MapStamen = 1;
+        }
+
+        
+
+        function azzeraScelte() {
+            var inputs = document.querySelectorAll('.check1');
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].checked = false;
+                inputs[i].disabled = false;
+            }
+        }
+    </script>
+
