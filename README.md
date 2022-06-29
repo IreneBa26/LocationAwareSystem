@@ -6,7 +6,7 @@ Location aware project providing the closest point of interest through privacy m
 The project implements a **Location-Based Service (LBS)** platform that provides spatial information on 
 the presence of car parks close to the user, with privacy management mechanisms. 
 In particular, the LBS receives a GPS coordinate (exact, or a reference area), and returns the **Point of
-of Interest (PoI** closest to the position provided as input.
+of Interest (PoI)** closest to the position provided as input.
 
 The focus of the project is on the implementation of **privacy mechanisms** of the spatial data, to reduce
 the risk related to the tracking of the user's trajectory by the LBS.
